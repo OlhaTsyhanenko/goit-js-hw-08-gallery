@@ -78,7 +78,7 @@ function addItemImages(galleryItems) {
     <img
       class="gallery__image"
       src=${preview}
-      data-source=${preview}
+      data-source=${original}
       alt=${description}
     />
   </a>
@@ -112,11 +112,46 @@ listEl.insertAdjacentHTML('afterbegin',imageAdd);
 // listEl.append(...elements);
 // console.log(listEl);
 
-listEl.addEventListener('click',onImageClick);
+const lightbox = document.querySelector('.js-lightbox');
+const btn = document.querySelector('[data-action="close-lightbox"]');
 
-function onImageClick(evt) {
-  console.log(evt.target);
+function onClickImage(e) {
+  e.preventDefault();
+  
+  if (!e.target.classList.contains('gallery__image')) {
+    return;
+  }
+  lightbox.classList.add('is-open');
+  lightbox.querySelector('.lightbox__image').src = e.target.dataset.source;
+  lightbox.querySelector('.lightbox__image').alt = e.target.alt;
 }
+
+function clearImage() {
+
+  const img = lightbox.querySelector('.lightbox__image');
+
+
+  if (img.src !== "") {
+    console.log(img.src);
+    img.src = '';
+  }
+}
+
+function onClickCloseBtn(e) {
+  if(e.target.nodeName === "I" || e.target.nodeName === "BUTTON") {
+   lightbox.classList.remove('is-open');
+  }
+
+  clearImage();
+
+  const img = lightbox.querySelector('.lightbox__image');
+  console.log(img);
+}
+
+
+
+listEl.addEventListener('click', onClickImage);
+btn.addEventListener('click', onClickCloseBtn);
 
 
 
