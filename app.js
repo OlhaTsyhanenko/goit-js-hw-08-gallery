@@ -112,6 +112,12 @@ listEl.insertAdjacentHTML('afterbegin',imageAdd);
 // listEl.append(...elements);
 // console.log(listEl);
 
+listEl.addEventListener('click',onImageClick);
+
+function onImageClick(evt) {
+  console.log(evt.target);
+}
+
 
 
 
