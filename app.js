@@ -65,50 +65,52 @@ const galleryItems = [
 ];
 
 const listEl = document.querySelector('.js-gallery');
+const imageAdd = addItemImages(galleryItems);
 
-// const addItemImages = (galleryItems) => {
-//  return `<li class="gallery__item">
-//   <a
-//     class="gallery__link"
-//     href=${galleryItems.original}
-//   >
-//     <img
-//       class="gallery__image"
-//       src=${galleryItems.preview}
-//       data-source=${galleryItems.preview}
-//       alt=${galleryItems.description}
-//     />
-//   </a>
-// </li>`
+function addItemImages(galleryItems) {
+  return galleryItems
+    .map(({ original, preview, description }) => {
+    return `<li class="gallery__item">
+  <a
+    class="gallery__link"
+    href=${original}
+  >
+    <img
+      class="gallery__image"
+      src=${preview}
+      data-source=${preview}
+      alt=${description}
+    />
+  </a>
+</li>`;
+  })
+    .join('');
+}
+listEl.insertAdjacentHTML('afterbegin',imageAdd);
+
+// const makeGalleryItems = galleryItems => {
+//   return galleryItems.map(galleryItem => {
+//     const itemEl = document.createElement('li');
+//     itemEl.classList.add('gallery__item');
+//     const linkEl = document.createElement('a');
+//     linkEl.classList.add('gallery__link');
+//     linkEl.href = galleryItem.original;
+
+//     const imgEl = document.createElement('img');
+//     imgEl.classList.add('gallery__image');
+//     imgEl.src = galleryItem.preview;
+//     imgEl.dataset.source = galleryItem.preview;
+//     imgEl.alt = galleryItem.description;
+
+//     linkEl.append(imgEl);
+//     itemEl.append(linkEl);
+
+//     return itemEl;
+//   });
 // };
-// const add = galleryItems.map(addItemImages).join('');
-// listEl.insertAdjacentHTML('afterbegin',add);
-
-const makeGalleryItems = galleryItems => {
-  return galleryItems.map(galleryItem => {
-    const itemEl = document.createElement('li');
-    itemEl.classList.add('gallery__item');
-    const linkEl = document.createElement('a');
-    linkEl.classList.add('gallery__link');
-    linkEl.href = galleryItem.original;
-
-    const imgEl = document.createElement('img');
-    imgEl.classList.add('gallery__image');
-    imgEl.src = galleryItem.preview;
-    imgEl.dataset.source = galleryItem.preview;
-    imgEl.alt = galleryItem.description;
-
-    linkEl.append(imgEl);
-    itemEl.append(linkEl);
-
-    return itemEl;
-  });
-};
-
-const elements = makeGalleryItems(galleryItems);
-listEl.append(...elements);
-
-console.log(listEl);
+// const elements = makeGalleryItems(galleryItems);
+// listEl.append(...elements);
+// console.log(listEl);
 
 
 
