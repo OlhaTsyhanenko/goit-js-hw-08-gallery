@@ -129,25 +129,23 @@ function onClickImage(e) {
 function clearImage() {
 
   const img = lightbox.querySelector('.lightbox__image');
-
-
   if (img.src !== "") {
-    console.log(img.src);
-    img.src = '';
+    img.src = "";
+    img.alt = "";
   }
 }
 
 function onClickCloseBtn(e) {
-  if(e.target.nodeName === "I" || e.target.nodeName === "BUTTON") {
-   lightbox.classList.remove('is-open');
+  console.log(e.target.dataset.action);
+  if (e.target.dataset.action !=="close-lightbox") {
+    return;
   }
-
+  const currentActiveImage = document.querySelector('.js-lightbox.is-open');
+  if (currentActiveImage) {
+    currentActiveImage.classList.remove('is-open');
+  }
   clearImage();
-
-  const img = lightbox.querySelector('.lightbox__image');
-  console.log(img);
 }
-
 
 
 listEl.addEventListener('click', onClickImage);
