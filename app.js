@@ -114,6 +114,7 @@ listEl.insertAdjacentHTML('afterbegin',imageAdd);
 
 const lightbox = document.querySelector('.js-lightbox');
 const btn = document.querySelector('[data-action="close-lightbox"]');
+const overlay = document.querySelector('div.lightbox__overlay');
 
 function onClickImage(e) {
   e.preventDefault();
@@ -127,7 +128,6 @@ function onClickImage(e) {
 }
 
 function clearImage() {
-
   const img = lightbox.querySelector('.lightbox__image');
   if (img.src !== "") {
     img.src = "";
@@ -137,9 +137,9 @@ function clearImage() {
 
 function onClickCloseBtn(e) {
   console.log(e.target.dataset.action);
-  if (e.target.dataset.action !=="close-lightbox") {
-    return;
-  }
+  // if (e.target.dataset.action !=="close-lightbox") {
+  //   return;
+  // }
   const currentActiveImage = document.querySelector('.js-lightbox.is-open');
   if (currentActiveImage) {
     currentActiveImage.classList.remove('is-open');
@@ -148,8 +148,33 @@ function onClickCloseBtn(e) {
 }
 
 
+function onClickCloseOverlay(e) {
+  if (!e.target.classList.contains('lightbox__overlay')) {
+    return;
+  }
+
+  const currentActiveImage = document.querySelector('.js-lightbox.is-open');
+  if (currentActiveImage) {
+    currentActiveImage.classList.remove('is-open');
+  }
+  clearImage();
+}
+
+function onClickEsc(e) {
+  console.log(e.key);
+  if (e.key !== "Escape") {
+    return;
+  }
+  const currentActiveImage = document.querySelector('.js-lightbox.is-open');
+  currentActiveImage.classList.remove('is-open');
+  clearImage();
+}
+
+
 listEl.addEventListener('click', onClickImage);
 btn.addEventListener('click', onClickCloseBtn);
+overlay.addEventListener('click', onClickCloseOverlay);
+window.addEventListener('keydown', onClickEsc);
 
 
 
